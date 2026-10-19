@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Лошади</title>
+</head>
+<body>
+<h2>Управление лошадьми</h2>
+
+<form th:action="@{/horses/save}" th:object="${horse}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Имя: <input type="text" th:field="*{name}" required /></label><br/>
+    <label>Порода: <input type="text" th:field="*{breed}" required /></label><br/>
+    <label>Возраст: <input type="number" th:field="*{age}" required /></label><br/>
+    <label>Вес: <input type="number" step="0.01" th:field="*{weight}" required /></label><br/>
+    <button type="submit">Сохранить</button>
+</form>
+
+<hr/>
+
+<table border="1">
+    <tr>
+        <th>ID</th><th>Имя</th><th>Порода</th><th>Возраст</th><th>Вес</th><th>Действия</th>
+    </tr>
+    <tr th:each="h : ${horses}">
+        <td th:text="${h.id}">1</td>
+        <td th:text="${h.name}">Имя</td>
+        <td th:text="${h.breed}">Порода</td>
+        <td th:text="${h.age}">5</td>
+        <td th:text="${h.weight}">450.0</td>
+        <td>
+            <a th:href="@{/horses/edit/{id}(id=${h.id})}">Редактировать</a> |
+            <a th:href="@{/horses/delete/{id}(id=${h.id})}">Удалить</a>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<a th:href="@{/}">На главную</a>
+</body>
+</html>

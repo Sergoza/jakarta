@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Наездники</title>
+</head>
+<body>
+<h2>Управление наездниками</h2>
+
+<form th:action="@{/riders/save}" th:object="${rider}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>ФИО: <input type="text" th:field="*{fio}" required /></label><br/>
+    <label>Опыт: <input type="number" th:field="*{experience}" required /></label><br/>
+    <label>Телефон: <input type="text" th:field="*{phoneNumber}" required /></label><br/>
+    <button type="submit">Сохранить</button>
+</form>
+
+<hr/>
+
+<table border="1">
+    <tr>
+        <th>ID</th><th>ФИО</th><th>Опыт</th><th>Телефон</th><th>Действия</th>
+    </tr>
+    <tr th:each="r : ${riders}">
+        <td th:text="${r.id}">1</td>
+        <td th:text="${r.fio}">Иванов</td>
+        <td th:text="${r.experience}">5</td>
+        <td th:text="${r.phoneNumber}">+7999</td>
+        <td>
+            <a th:href="@{/riders/edit/{id}(id=${r.id})}">Редактировать</a> |
+            <a th:href="@{/riders/delete/{id}(id=${r.id})}">Удалить</a>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<a th:href="@{/}">На главную</a>
+</body>
+</html>
